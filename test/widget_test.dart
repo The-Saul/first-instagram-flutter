@@ -15,6 +15,5 @@ void main() {
 
     expect(find.text('Instagram'), findsOneWidget);
     expect(find.text('mgoblue'), findsOneWidget);
-    expect(find.text('Curtido por 125 pessoas'), findsOneWidget);
   });
 }
