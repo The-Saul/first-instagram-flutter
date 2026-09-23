@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../camera/camera_page.dart';
+
 import 'components/feed_app_bar.dart';
 import 'components/post_header.dart';
 import 'components/post_image.dart';
@@ -21,11 +23,33 @@ class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const FeedAppBar(),
+
+      // =========================================================
+      // BARRA SUPERIOR
+      // =========================================================
+
+      appBar: FeedAppBar(
+        onCameraPressed: () {
+
+          Navigator.push(
+            context,
+
+            MaterialPageRoute(
+              builder: (context) {
+                return const CameraPage();
+              },
+            ),
+          );
+
+        },
+      ),
+
+      // =========================================================
+      // FEED
+      // =========================================================
 
       body: ListView(
         children: const [
-          // PRIMEIRA PUBLICAÇÃO
 
           PostHeader(
             nomeUsuario: 'mgoblue',
@@ -45,12 +69,11 @@ class _FeedPageState extends State<FeedPage> {
 
           PostDescription(
             nomeUsuario: 'mgoblue',
-            descricao: 'Uma linda paisagem da cidade! 🏙️',
+            descricao:
+                'Uma linda paisagem da cidade! 🏙️',
           ),
 
           SizedBox(height: 20),
-
-          // SEGUNDA PUBLICAÇÃO
 
           PostHeader(
             nomeUsuario: 'usuario_flutter',
@@ -71,4 +94,3 @@ class _FeedPageState extends State<FeedPage> {
     );
   }
 }
-
