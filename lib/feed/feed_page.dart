@@ -65,14 +65,8 @@ class _FeedPageState extends State<FeedPage> {
         ],
       ),
 
-      bottomNavigationBar: FeedBottomNavigation(
-        indiceSelecionado: indiceSelecionado,
-
-        onItemSelecionado: (index) {
-          setState(() {
-            indiceSelecionado = index;
-          });
-        },
+      bottomNavigationBar: const FeedBottomNavigation(
+        indiceSelecionado: 0,
       ),
     );
   }

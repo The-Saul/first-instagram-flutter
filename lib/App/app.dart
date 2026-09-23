@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../feed/feed_page.dart';
+import '../popular/popular_page.dart';
 
 class InstagramApp extends StatelessWidget {
   const InstagramApp({super.key});
@@ -8,7 +10,8 @@ class InstagramApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Instagram Feed',
+
+      title: 'Instagram',
 
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
@@ -16,6 +19,11 @@ class InstagramApp extends StatelessWidget {
       ),
 
       home: const FeedPage(),
+
+      routes: {
+        '/feed': (context) => const FeedPage(),
+        '/popular': (context) => const PopularPage(),
+      },
     );
   }
 }

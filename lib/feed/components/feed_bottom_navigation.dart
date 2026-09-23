@@ -2,49 +2,180 @@ import 'package:flutter/material.dart';
 
 class FeedBottomNavigation extends StatelessWidget {
   final int indiceSelecionado;
-  final Function(int) onItemSelecionado;
 
   const FeedBottomNavigation({
     super.key,
     required this.indiceSelecionado,
-    required this.onItemSelecionado,
   });
+
+  void _navegar(BuildContext context, int index) {
+    if (index == indiceSelecionado) {
+      return;
+    }
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacementNamed(context, '/feed');
+        break;
+
+      case 1:
+        Navigator.pushReplacementNamed(context, '/popular');
+        break;
+
+      case 2:
+        // Share será implementado depois.
+        break;
+
+      case 3:
+        // News será implementado depois.
+        break;
+
+      case 4:
+        // Perfil será implementado depois.
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: indiceSelecionado,
+    return Container(
+      height: 70,
+      color: const Color(0xFF3F3F3F),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _item(
+            context,
+            index: 0,
+            icon: Icons.people_outline,
+            activeIcon: Icons.people,
+            label: 'Feed',
+          ),
 
-      onTap: onItemSelecionado,
+          _item(
+            context,
+            index: 1,
+            icon: Icons.public_outlined,
+            activeIcon: Icons.public,
+            label: 'Popular',
+          ),
 
-      type: BottomNavigationBarType.fixed,
+          // CÂMERA DESTACADA
+          _cameraItem(context),
 
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Início',
+          _item(
+            context,
+            index: 3,
+            icon: Icons.article_outlined,
+            activeIcon: Icons.article,
+            label: 'News',
+          ),
+
+          _item(
+            context,
+            index: 4,
+            icon: Icons.person_outline,
+            activeIcon: Icons.person,
+            label: '@perfil',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _item(
+    BuildContext context, {
+    required int index,
+    required IconData icon,
+    required IconData activeIcon,
+    required String label,
+  }) {
+    final bool selecionado = indiceSelecionado == index;
+
+    return Expanded(
+      child: InkWell(
+        onTap: () => _navegar(context, index),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              selecionado ? activeIcon : icon,
+              size: 28,
+              color: selecionado
+                  ? Colors.white
+                  : Colors.white70,
+            ),
+
+            const SizedBox(height: 3),
+
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: selecionado
+                    ? FontWeight.bold
+                    : FontWeight.normal,
+                color: selecionado
+                    ? Colors.white
+                    : Colors.white70,
+              ),
+            ),
+          ],
         ),
+      ),
+    );
+  }
 
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Pesquisar',
-        ),
+  Widget _cameraItem(BuildContext context) {
+    final bool selecionado = indiceSelecionado == 2;
 
-        BottomNavigationBarItem(
-          icon: Icon(Icons.add_box_outlined),
-          label: 'Publicar',
-        ),
+    return Expanded(
+      child: InkWell(
+        onTap: () => _navegar(context, 2),
+        child: Transform.translate(
+          offset: const Offset(0, -8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 52,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: selecionado
+                      ? Colors.white
+                      : const Color(0xFF555555),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                ),
+                child: Icon(
+                  Icons.camera_alt,
+                  size: 29,
+                  color: selecionado
+                      ? const Color(0xFF3F3F3F)
+                      : Colors.white,
+                ),
+              ),
 
-        BottomNavigationBarItem(
-          icon: Icon(Icons.favorite_border),
-          label: 'Atividade',
-        ),
+              const SizedBox(height: 2),
 
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline),
-          label: 'Perfil',
+              Text(
+                'Share',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: selecionado
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
         ),
-      ],
+      ),
     );
   }
 }
