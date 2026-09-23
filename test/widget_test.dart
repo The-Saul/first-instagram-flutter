@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:first_instagram_flutter/main.dart';
+import 'package:first_instagram_flutter/App/app.dart';
 
 void main() {
   testWidgets('renders the Instagram feed', (WidgetTester tester) async {
