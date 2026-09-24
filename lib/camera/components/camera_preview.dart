@@ -19,26 +19,25 @@ class CameraPreviewWidget extends StatelessWidget {
       );
     }
 
-    final previewSize =
-        controller.value.previewSize;
+    final previewSize = controller.value.previewSize;
 
     if (previewSize == null) {
-      return CameraPreview(controller);
+      return ClipRect(
+        child: CameraPreview(controller),
+      );
     }
 
-    return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
-
-      child: FittedBox(
-        fit: BoxFit.cover,
-
-        child: SizedBox(
-          width: previewSize.height,
-          height: previewSize.width,
-
-          child: CameraPreview(
-            controller,
+    return ClipRect(
+      child: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: FittedBox(
+          fit: BoxFit.cover,
+          clipBehavior: Clip.hardEdge,
+          child: SizedBox(
+            width: previewSize.height,
+            height: previewSize.width,
+            child: CameraPreview(controller),
           ),
         ),
       ),

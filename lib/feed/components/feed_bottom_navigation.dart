@@ -1,179 +1,250 @@
 import 'package:flutter/material.dart';
+import 'package:first_instagram_flutter/popular/popular_page.dart'; 
+import 'package:first_instagram_flutter/feed/feed_page.dart';
+import 'package:first_instagram_flutter/camera/camera_page.dart';
 
 class FeedBottomNavigation extends StatelessWidget {
   final int indiceSelecionado;
+  final Function(int) onItemSelecionado;
 
   const FeedBottomNavigation({
     super.key,
     required this.indiceSelecionado,
+    required this.onItemSelecionado,
   });
-
-  void _navegar(BuildContext context, int index) {
-    if (index == indiceSelecionado) {
-      return;
-    }
-
-    switch (index) {
-      case 0:
-        Navigator.pushReplacementNamed(context, '/feed');
-        break;
-
-      case 1:
-        Navigator.pushReplacementNamed(context, '/popular');
-        break;
-
-      case 2:
-        // Share será implementado depois.
-        break;
-
-      case 3:
-        // News será implementado depois.
-        break;
-
-      case 4:
-        // Perfil será implementado depois.
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
-      color: const Color(0xFF3F3F3F),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      height: 82,
+      decoration: const BoxDecoration(
+        color: Color(0xFF303030),
+        border: Border(
+          top: BorderSide(
+            color: Color(0xFF555555),
+            width: 1,
+          ),
+        ),
+      ),
+      child: Stack(
+        clipBehavior: Clip.none,
         children: [
-          _item(
-            context,
-            index: 0,
-            icon: Icons.people_outline,
-            activeIcon: Icons.people,
-            label: 'Feed',
+          // ==========================================
+          // ITENS DO MENU
+          // ==========================================
+          Row(
+            children: [
+              // FEED
+              Expanded(
+                child: _MenuItem(
+                  indice: 0,
+                  selecionado: indiceSelecionado == 0,
+                  icone: Icons.people,
+                  texto: 'Feed',
+                  onTap: () {
+                    onItemSelecionado(0);
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const FeedPage();
+                        },
+                      )
+                    );
+                  },
+                ),
+              ),
+
+              // POPULAR
+              Expanded(
+  child: _MenuItem(
+    indice: 1,
+    selecionado: indiceSelecionado == 1,
+    icone: Icons.public,
+    texto: 'Popular',
+    onTap: () {
+      onItemSelecionado(1);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return const PopularPage();
+          },
+        ),
+      );
+    },
+  ),
+),
+
+              // ESPAÇO DA CÂMERA
+              const Expanded(
+                child: SizedBox(
+                ),
+              
+              ),
+
+              // NEWS
+              Expanded(
+                child: _MenuItem(
+                  indice: 3,
+                  selecionado: indiceSelecionado == 3,
+                  icone: Icons.article_outlined,
+                  texto: 'News',
+                  onTap: () {
+                    onItemSelecionado(3);
+                  },
+                ),
+              ),
+
+              // PERFIL
+              Expanded(
+                child: _MenuItem(
+                  indice: 4,
+                  selecionado: indiceSelecionado == 4,
+                  icone: Icons.person_outline,
+                  texto: '@perfil',
+                  onTap: () {
+                    onItemSelecionado(4);
+                  },
+                ),
+              ),
+            ],
           ),
 
-          _item(
-            context,
-            index: 1,
-            icon: Icons.public_outlined,
-            activeIcon: Icons.public,
-            label: 'Popular',
-          ),
+          // ==========================================
+          // CÂMERA CENTRAL
+          // ==========================================
+          Positioned(
+            top: -22,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  onItemSelecionado(2);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const CameraPage();
+                      },
+                    ),
+                  );
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      width: 68,
+                      height: 68,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: const Color(0xFF3A3A3A),
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 2,
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black54,
+                            blurRadius: 5,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: const Color(0xFF555555),
+                          border: Border.all(
+                            color: Colors.white70,
+                            width: 2,
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                          size: 32,
+                        ),
+                      ),
+                    ),
+                    
 
-          // CÂMERA DESTACADA
-          _cameraItem(context),
+                    const SizedBox(height: 3),
 
-          _item(
-            context,
-            index: 3,
-            icon: Icons.article_outlined,
-            activeIcon: Icons.article,
-            label: 'News',
-          ),
-
-          _item(
-            context,
-            index: 4,
-            icon: Icons.person_outline,
-            activeIcon: Icons.person,
-            label: '@perfil',
+                    Text(
+                      'Share',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.85),
+                        fontSize: 11,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),
     );
   }
+}
 
-  Widget _item(
-    BuildContext context, {
-    required int index,
-    required IconData icon,
-    required IconData activeIcon,
-    required String label,
-  }) {
-    final bool selecionado = indiceSelecionado == index;
+// ==================================================
+// ITEM NORMAL DO MENU
+// ==================================================
 
-    return Expanded(
-      child: InkWell(
-        onTap: () => _navegar(context, index),
+class _MenuItem extends StatelessWidget {
+  final int indice;
+  final bool selecionado;
+  final IconData icone;
+  final String texto;
+  final VoidCallback onTap;
+
+  const _MenuItem({
+    required this.indice,
+    required this.selecionado,
+    required this.icone,
+    required this.texto,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: SizedBox(
+        height: 82,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              selecionado ? activeIcon : icon,
-              size: 28,
+              icone,
+              size: 29,
               color: selecionado
                   ? Colors.white
-                  : Colors.white70,
+                  : const Color(0xFFBDBDBD),
             ),
 
             const SizedBox(height: 3),
 
             Text(
-              label,
+              texto,
               style: TextStyle(
+                color: selecionado
+                    ? Colors.white
+                    : const Color(0xFFBDBDBD),
                 fontSize: 11,
                 fontWeight: selecionado
                     ? FontWeight.bold
                     : FontWeight.normal,
-                color: selecionado
-                    ? Colors.white
-                    : Colors.white70,
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _cameraItem(BuildContext context) {
-    final bool selecionado = indiceSelecionado == 2;
-
-    return Expanded(
-      child: InkWell(
-        onTap: () => _navegar(context, 2),
-        child: Transform.translate(
-          offset: const Offset(0, -8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 52,
-                height: 52,
-                decoration: BoxDecoration(
-                  color: selecionado
-                      ? Colors.white
-                      : const Color(0xFF555555),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 2,
-                  ),
-                ),
-                child: Icon(
-                  Icons.camera_alt,
-                  size: 29,
-                  color: selecionado
-                      ? const Color(0xFF3F3F3F)
-                      : Colors.white,
-                ),
-              ),
-
-              const SizedBox(height: 2),
-
-              Text(
-                'Share',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: selecionado
-                      ? FontWeight.bold
-                      : FontWeight.normal,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );

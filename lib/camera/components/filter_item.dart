@@ -25,8 +25,8 @@ class FilterItem extends StatelessWidget {
     Widget miniatura = Image.file(
       File(imagem),
 
-      width: 64,
-      height: 64,
+      width: 60,
+      height: 60,
 
       fit: BoxFit.cover,
     );

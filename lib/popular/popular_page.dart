@@ -45,8 +45,8 @@ class PopularPage extends StatelessWidget {
 
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
         ),
 
         itemCount: imagens.length,
@@ -59,8 +59,9 @@ class PopularPage extends StatelessWidget {
         },
       ),
 
-      bottomNavigationBar: const FeedBottomNavigation(
+      bottomNavigationBar: FeedBottomNavigation(
         indiceSelecionado: 1,
+        onItemSelecionado: (_) {},
       ),
     );
   }

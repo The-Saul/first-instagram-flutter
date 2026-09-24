@@ -203,56 +203,38 @@ class _CameraPageState extends State<CameraPage> {
   // ============================================================
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.black,
+    body: SafeArea(
+      child: Column(
+        children: [
+          CameraTopBar(
+            titulo: 'Camera',
+            textoEsquerda: 'Back',
+            textoDireita: 'Gallery',
+            onEsquerda: () {
+              Navigator.pop(context);
+            },
+            onDireita: _abrirGaleria,
+          ),
 
-      body: SafeArea(
-        child: Column(
-          children: [
-            // --------------------------------------------------
-            // BARRA SUPERIOR
-            // --------------------------------------------------
-
-            CameraTopBar(
-              titulo: 'Camera',
-
-              textoEsquerda: 'Back',
-
-              textoDireita: 'Gallery',
-
-              onEsquerda: () {
-                Navigator.pop(context);
-              },
-
-              onDireita: _abrirGaleria,
-            ),
-
-            // --------------------------------------------------
-            // PREVIEW
-            // --------------------------------------------------
-
-            Expanded(
+          Expanded(
+            child: ClipRect(
               child: _buildCamera(),
             ),
+          ),
 
-            // --------------------------------------------------
-            // BARRA INFERIOR
-            // --------------------------------------------------
-
-            CameraBottomBar(
-              onTrocarCamera: _trocarCamera,
-
-              onTirarFoto: _tirarFoto,
-
-              onGaleria: _abrirGaleria,
-            ),
-          ],
-        ),
+          CameraBottomBar(
+            onTrocarCamera: _trocarCamera,
+            onTirarFoto: _tirarFoto,
+            onGaleria: _abrirGaleria,
+          ),
+        ],
       ),
-    );
-  }
-
+    ),
+  );
+}
   // ============================================================
   // BUILD CAMERA
   // ============================================================

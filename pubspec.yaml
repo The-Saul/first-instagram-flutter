@@ -60,7 +60,8 @@ flutter:
   uses-material-design: true
   
   assets:
-    - lib/assets/cidade.jpg
+    - lib/assets/profile-picture.jpeg
+    - lib/assets/images.jpeg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

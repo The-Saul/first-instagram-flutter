@@ -23,41 +23,34 @@ class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      // =========================================================
-      // BARRA SUPERIOR
-      // =========================================================
-
+      // ------------------------------------------------
+      // MENU SUPERIOR
+      // ------------------------------------------------
       appBar: FeedAppBar(
         onCameraPressed: () {
-
           Navigator.push(
             context,
-
             MaterialPageRoute(
               builder: (context) {
                 return const CameraPage();
               },
             ),
           );
-
         },
       ),
 
-      // =========================================================
+      // ------------------------------------------------
       // FEED
-      // =========================================================
-
+      // ------------------------------------------------
       body: ListView(
         children: const [
-
           PostHeader(
-            nomeUsuario: 'mgoblue',
+            nomeUsuario: 'Saul_gay',
             corAvatar: Colors.blue,
           ),
 
           PostImage(
-            imagem: 'lib/assets/cidade.jpg',
+            imagem: 'lib/assets/profile-picture.jpeg',
             altura: 400,
           ),
 
@@ -68,28 +61,49 @@ class _FeedPageState extends State<FeedPage> {
           ),
 
           PostDescription(
-            nomeUsuario: 'mgoblue',
-            descricao:
-                'Uma linda paisagem da cidade! 🏙️',
+            nomeUsuario: 'Saul_gay: ',
+            descricao: 'Uma linda paisagem! 🏙️',
           ),
 
           SizedBox(height: 20),
 
           PostHeader(
-            nomeUsuario: 'usuario_flutter',
+            nomeUsuario: 'Ellie',
             corAvatar: Colors.orange,
           ),
 
           PostImage(
+            imagem: 'lib/assets/images.jpeg',
             altura: 300,
           ),
 
           SizedBox(height: 30),
+          
+          PostActions(),
+
+          PostLikes(
+            quantidade: 278,
+          ),
+
+          PostDescription(
+            nomeUsuario: 'Ellie: ',
+            descricao: 'faça a vida valer apena',
+          ),
+
+          SizedBox(height: 20),
         ],
       ),
 
-      bottomNavigationBar: const FeedBottomNavigation(
-        indiceSelecionado: 0,
+      // ------------------------------------------------
+      // MENU INFERIOR DO INSTAGRAM
+      // ------------------------------------------------
+      bottomNavigationBar: FeedBottomNavigation(
+        indiceSelecionado: indiceSelecionado,
+        onItemSelecionado: (index) {
+          setState(() {
+            indiceSelecionado = index;
+          });
+        },
       ),
     );
   }
