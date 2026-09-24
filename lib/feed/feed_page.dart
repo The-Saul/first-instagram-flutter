@@ -50,7 +50,7 @@ class _FeedPageState extends State<FeedPage> {
           ),
 
           PostImage(
-            imagem: 'lib/assets/profile-picture.jpeg',
+            imagem: 'lib/assets/saul.png',
             altura: 400,
           ),
 
@@ -68,12 +68,12 @@ class _FeedPageState extends State<FeedPage> {
           SizedBox(height: 20),
 
           PostHeader(
-            nomeUsuario: 'Ellie',
+            nomeUsuario: 'Ellie_&_Lia',
             corAvatar: Colors.orange,
           ),
 
           PostImage(
-            imagem: 'lib/assets/images.jpeg',
+            imagem: 'lib/assets/ellielia.jpeg',
             altura: 300,
           ),
 
@@ -86,11 +86,63 @@ class _FeedPageState extends State<FeedPage> {
           ),
 
           PostDescription(
-            nomeUsuario: 'Ellie: ',
-            descricao: 'faça a vida valer apena',
+            nomeUsuario: 'Ellie_&_Lia: ',
+            descricao: 'faça a vida valer apena!',
           ),
 
           SizedBox(height: 20),
+
+          PostHeader(
+            nomeUsuario: 'Kevin_Systrom',
+            corAvatar: Colors.orange,
+          ),
+
+          PostImage(
+            imagem: 'lib/assets/Kevin_Systrom.jpg',
+            altura: 300,
+          ),
+
+          SizedBox(height: 30),
+          
+          PostActions(),
+
+          PostLikes(
+            quantidade: 178,
+          ),
+
+          PostDescription(
+            nomeUsuario: 'Kevin_Systrom: ',
+            descricao: 'eu sou um dos criadores do Instagram!',
+          ),
+
+          SizedBox(height: 20),
+          
+          
+          PostHeader(
+            nomeUsuario: 'Mike_Kriger',
+            corAvatar: Colors.orange,
+          ),
+
+          PostImage(
+            imagem: 'lib/assets/Mike.jpeg',
+            altura: 300,
+          ),
+
+          SizedBox(height: 30),
+          
+          PostActions(),
+
+          PostLikes(
+            quantidade: 198,
+          ),
+
+          PostDescription(
+            nomeUsuario: 'Mike_Kriger: ',
+            descricao: 'Br que ajudou a criar o Instagram!',
+          ),
+
+          SizedBox(height: 20),
+          
         ],
       ),
 
