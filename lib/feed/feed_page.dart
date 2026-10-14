@@ -61,8 +61,8 @@ class _FeedPageState extends State<FeedPage> {
           ),
 
           PostDescription(
-            nomeUsuario: 'Saul_gay: ',
-            descricao: 'Uma linda paisagem! 🏙️',
+            nomeUsuario: 'Saul: ',
+            descricao: 'Foto de Perfil Nova! 🏙️',
           ),
 
           SizedBox(height: 20),
